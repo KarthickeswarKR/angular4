@@ -1,0 +1,15 @@
+.headertab{
+  height: 60px;
+  min-width: 940px;
+  padding-top: 6px;
+}
+.headerlogodiv{
+float: left;
+  padding-top: 10px;
+}
+.headerlogoimg{
+    height: 40px;
+  padding-top: 5px;
+  padding-left: 30px;
+  float: left;
+}
