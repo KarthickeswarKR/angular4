@@ -1,13 +1,17 @@
 {
-  "name": "angular",
+  "name": "angular-ssr-example",
   "version": "0.0.0",
+  "license": "MIT",
   "scripts": {
     "ng": "ng",
     "start": "node app.js",
-    "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "build:browser": "ng build --prod --app 0",
+    "build:server": "ng build --prod --app 1 --output-hashing none",
+    "build": "npm run build:browser && npm run build:server",
+    "serve": "node server.js"
   },
   "private": true,
   "dependencies": {
@@ -17,17 +21,28 @@
     "@angular/core": "^6.1.0",
     "@angular/forms": "^6.1.0",
     "@angular/http": "^6.1.0",
-    "@angular/platform-browser": "^6.1.0",
+    "@angular/platform-browser": "^6.0.0",
     "@angular/platform-browser-dynamic": "^6.1.0",
+    "@angular/platform-server": "^6.0.0",
+    "@angular/pwa": "^0.8.4",
     "@angular/router": "^6.1.0",
+    "@angular/service-worker": "^6.1.9",
+    "@nguniversal/express-engine": "^6.0.0",
+    "body-parser": "^1.18.3",
     "bootstrap": "^4.1.3",
     "core-js": "^2.5.4",
+    "cors": "^2.8.4",
     "express": "^4.16.3",
+    "ngx-cookie-service": "^1.0.10",
     "path": "^0.12.7",
-    "rxjs": "^6.2.2",
+    "rxjs": "~6.2.0",
+    "ts-loader": "4.2.0",
+    "web-push": "^3.3.3",
+    "webpack-cli": "^2.1.4",
     "zone.js": "~0.8.26"
   },
   "devDependencies": {
+    "@angular-builders/jest": "^1.2.5",
     "@angular-devkit/build-angular": "~0.8.0",
     "@angular/cli": "~6.2.4",
     "@angular/compiler-cli": "^6.1.0",
@@ -38,18 +53,14 @@
     "codelyzer": "~4.3.0",
     "jasmine-core": "~2.99.1",
     "jasmine-spec-reporter": "~4.2.1",
-    "karma": "~3.0.0",
-    "karma-chrome-launcher": "~2.2.0",
-    "karma-coverage-istanbul-reporter": "~2.0.1",
-    "karma-jasmine": "~1.1.2",
-    "karma-jasmine-html-reporter": "^0.2.2",
+    "jest": "^23.6.0",
     "protractor": "~5.4.0",
-    "ts-node": "~7.0.0",
+    "karma": "~2.0.0",
+    "karma-chrome-launcher": "~2.2.0",
+    "karma-coverage-istanbul-reporter": "^1.2.1",
+    "karma-jasmine": "~1.1.0",
+    "karma-jasmine-html-reporter": "^0.2.2",
     "tslint": "~5.11.0",
     "typescript": "~2.9.2"
-  },
-  "engines": {
-    "node": "6.11.0",
-    "npm": "3.10.10"
   }
 }
