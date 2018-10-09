@@ -103,6 +103,7 @@ var routes = [
     { path: 'about', component: _components_about_about_component__WEBPACK_IMPORTED_MODULE_2__["AboutComponent"] },
     { path: 'organisation', component: _components_organisation_organisation_component__WEBPACK_IMPORTED_MODULE_5__["OrganisationComponent"] },
     { path: 'login', component: _login_login_component__WEBPACK_IMPORTED_MODULE_4__["LoginComponent"] },
+    { path: '**', redirectTo: '/login' },
 ];
 var AppRoutingModule = /** @class */ (function () {
     function AppRoutingModule() {
