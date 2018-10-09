@@ -103,7 +103,6 @@ var routes = [
     { path: 'about', component: _components_about_about_component__WEBPACK_IMPORTED_MODULE_2__["AboutComponent"] },
     { path: 'organisation', component: _components_organisation_organisation_component__WEBPACK_IMPORTED_MODULE_5__["OrganisationComponent"] },
     { path: 'login', component: _login_login_component__WEBPACK_IMPORTED_MODULE_4__["LoginComponent"] },
-    { path: '**', redirectTo: '/login' },
 ];
 var AppRoutingModule = /** @class */ (function () {
     function AppRoutingModule() {
@@ -178,12 +177,6 @@ var AppComponent = /** @class */ (function () {
     AppComponent.prototype.ngOnInit = function () {
         this.userId = this.cookieService.get('userId');
         this.token = this.cookieService.get('token');
-        if (this.userId && this.token) {
-            this.router.navigateByUrl('');
-        }
-        else {
-            this.router.navigateByUrl('login');
-        }
     };
     AppComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
