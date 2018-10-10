@@ -2,23 +2,23 @@ import { NgModule }       from '@angular/core';
 import { BrowserModule }  from '@angular/platform-browser';
 import { FormsModule }    from '@angular/forms';
 import { HttpClientModule }    from '@angular/common/http';
-
-import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
-import { InMemoryDataService }  from './in-memory-data.service';
-
+import { ServiceWorkerModule } from '@angular/service-worker';
 import { AppRoutingModule }     from './app-routing.module';
 
 import { AppComponent }         from './app.component';
-import { DashboardComponent }   from './dashboard/dashboard.component';
-import { HeroDetailComponent }  from './hero-detail/hero-detail.component';
-import { HeroesComponent }      from './heroes/heroes.component';
-import { HeroSearchComponent }  from './hero-search/hero-search.component';
-import { HeroService }          from './hero.service';
-import { MessageService }       from './message.service';
-import { MessagesComponent }    from './messages/messages.component';
-
+import { Globals } from './app.globals';
+import { TokenInterceptor } from './TokenInterceptor';
+import { PushNotificationService } from './pushNotification.service';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { LoginComponent } from './login/login.component';
+import { HomeComponent } from './home/home.component';
+import { CookieService } from 'ngx-cookie-service';
+import { HeaderComponent } from './home/header/header.component';
+import { BodyComponent } from './home/body/body.component';
+import {AppService} from './app.service';
 import { PLATFORM_ID, APP_ID, Inject } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
+
 
 
 @NgModule({
@@ -27,19 +27,20 @@ import { isPlatformBrowser } from '@angular/common';
     FormsModule,
     AppRoutingModule,
     HttpClientModule,
-    HttpClientInMemoryWebApiModule.forRoot(
-      InMemoryDataService, { dataEncapsulation: false }
-    )
+    ServiceWorkerModule.register('/ngsw-worker.js', { enabled: false })
   ],
   declarations: [
     AppComponent,
-    DashboardComponent,
-    HeroesComponent,
-    HeroDetailComponent,
-    MessagesComponent,
-    HeroSearchComponent
+    LoginComponent,
+    HomeComponent,
+    HeaderComponent,
+    BodyComponent
   ],
-  providers: [ HeroService, MessageService ],
+  providers: [AppService,Globals,PushNotificationService,CookieService,{
+    provide: HTTP_INTERCEPTORS,
+    useClass: TokenInterceptor,
+    multi: true
+  }],
   bootstrap: [ AppComponent ]
 })
 export class AppModule {
