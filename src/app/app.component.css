@@ -1,15 +1,29 @@
-.headertab{
-  height: 60px;
-  min-width: 940px;
-  padding-top: 6px;
+/* AppComponent's private CSS styles */
+h1 {
+  font-size: 1.2em;
+  color: #999;
+  margin-bottom: 0;
 }
-.headerlogodiv{
-float: left;
-  padding-top: 10px;
+h2 {
+  font-size: 2em;
+  margin-top: 0;
+  padding-top: 0;
 }
-.headerlogoimg{
-    height: 40px;
-  padding-top: 5px;
-  padding-left: 30px;
-  float: left;
+nav a {
+  padding: 5px 10px;
+  text-decoration: none;
+  margin-top: 10px;
+  display: inline-block;
+  background-color: #eee;
+  border-radius: 4px;
+}
+nav a:visited, a:link {
+  color: #607D8B;
+}
+nav a:hover {
+  color: #039be5;
+  background-color: #CFD8DC;
+}
+nav a.active {
+  color: #039be5;
 }

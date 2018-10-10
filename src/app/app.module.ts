@@ -1,42 +1,53 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
-import { CommonModule } from '@angular/common';
-import { ServiceWorkerModule } from '@angular/service-worker';
-import { PushNotificationService } from './pushNotification.service';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { Globals } from './app.globals';
-import { TokenInterceptor } from './TokenInterceptor';
-import { FormsModule } from '@angular/forms';
-import { CookieService } from 'ngx-cookie-service';
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { AboutComponent } from './components/about/about.component';
-import { HomeComponent } from './components/home/home.component';
-import { OrganisationComponent } from './components/organisation/organisation.component';
-import { LoginComponent } from './login/login.component';
+import { NgModule }       from '@angular/core';
+import { BrowserModule }  from '@angular/platform-browser';
+import { FormsModule }    from '@angular/forms';
+import { HttpClientModule }    from '@angular/common/http';
+
+import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { InMemoryDataService }  from './in-memory-data.service';
+
+import { AppRoutingModule }     from './app-routing.module';
+
+import { AppComponent }         from './app.component';
+import { DashboardComponent }   from './dashboard/dashboard.component';
+import { HeroDetailComponent }  from './hero-detail/hero-detail.component';
+import { HeroesComponent }      from './heroes/heroes.component';
+import { HeroSearchComponent }  from './hero-search/hero-search.component';
+import { HeroService }          from './hero.service';
+import { MessageService }       from './message.service';
+import { MessagesComponent }    from './messages/messages.component';
+
+import { PLATFORM_ID, APP_ID, Inject } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 
 
 @NgModule({
-    declarations: [
-        AppComponent,
-        AboutComponent,
-        HomeComponent,
-        OrganisationComponent,
-        LoginComponent
-    ],
-    imports: [
-        CommonModule,
-        AppRoutingModule,
-        HttpClientModule,
-FormsModule,
-HttpClientModule,
-ServiceWorkerModule.register('/ngsw-worker.js', { enabled: false }),
-    ],
-    providers: [Globals,PushNotificationService,CookieService,{
-      provide: HTTP_INTERCEPTORS,
-      useClass: TokenInterceptor,
-      multi: true
-    }]
+  imports: [
+    BrowserModule.withServerTransition({ appId: 'tour-of-heroes' }),
+    FormsModule,
+    AppRoutingModule,
+    HttpClientModule,
+    HttpClientInMemoryWebApiModule.forRoot(
+      InMemoryDataService, { dataEncapsulation: false }
+    )
+  ],
+  declarations: [
+    AppComponent,
+    DashboardComponent,
+    HeroesComponent,
+    HeroDetailComponent,
+    MessagesComponent,
+    HeroSearchComponent
+  ],
+  providers: [ HeroService, MessageService ],
+  bootstrap: [ AppComponent ]
 })
-export class AppModule { }
+export class AppModule {
+  constructor(
+    @Inject(PLATFORM_ID) private platformId: Object,
+    @Inject(APP_ID) private appId: string) {
+    const platform = isPlatformBrowser(platformId) ?
+      'in the browser' : 'on the server';
+    console.log(`Running ${platform} with appId=${appId}`);
+  }
+}
