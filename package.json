@@ -5,7 +5,7 @@
   "description": "Example project from an angular.io guide.",
   "scripts": {
     "ng": "ng",
-    "start": "node dist/server",
+    "start": "npm run build:client-and-server-bundles && npm run webpack:server && node dist/server",
     "test": "ng test",
     "lint": "tslint ./src/**/*.ts -t verbose",
     "e2e": "ng e2e",
